@@ -2,9 +2,10 @@
 var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
-
+var cors = require('cors');
 module.exports = function(app) {
 
+	app.use(cors());
 // main login page //
 	app.get('/', function(req, res){
 	// check if the user's credentials are saved in a cookie //
@@ -24,19 +25,7 @@ module.exports = function(app) {
 	});
 	
 	app.post('/', function(req, res){
-		// Website you wish to allow to connect
-		res.setHeader('Access-Control-Allow-Origin', '*');
-
-		// Request methods you wish to allow
-		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-		// Request headers you wish to allow
-		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-		// Set to true if you need the website to include cookies in the requests sent
-		// to the API (e.g. in case you use sessions)
-		res.setHeader('Access-Control-Allow-Credentials', true);
-
+	
 		AM.manualLogin(req.body['user'], req.body['pass'], function(e, o){
 			if (!o){
 				res.status(400).send(e);
@@ -105,19 +94,7 @@ module.exports = function(app) {
 	});
 	
 	app.post('/signup', function(req, res){
-		// Website you wish to allow to connect
-		res.setHeader('Access-Control-Allow-Origin', '*');
-
-		// Request methods you wish to allow
-		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-		// Request headers you wish to allow
-		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-		// Set to true if you need the website to include cookies in the requests sent
-		// to the API (e.g. in case you use sessions)
-		res.setHeader('Access-Control-Allow-Credentials', true);
-
+	
 		AM.addNewAccount({
 			name 	: req.body['name'],
 			email 	: req.body['email'],
