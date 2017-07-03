@@ -12,9 +12,10 @@ var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
-
+var cors = require('cors');
 var app = express();
 
+app.use(cors());
 app.locals.pretty = true;
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/app/server/views');
